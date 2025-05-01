@@ -4,7 +4,9 @@
   "description": "A component library for Blazor-based applications for the LANCommander platform",
   "main": "main.js",
   "scripts": {
-    "package": "webpack"
+    "build:sass": "sass ./Styles/ui.scss ./wwwroot/ui.css",
+    "build:ts": "tsc",
+    "build": "npm run build:sass && npm run build:ts"
   },
   "repository": {
     "type": "git",
@@ -17,15 +19,8 @@
   },
   "homepage": "https://github.com/LANCommander/LANCommander#readme",
   "devDependencies": {
-    "copy-webpack-plugin": "^12.0.2",
-    "css-loader": "^7.1.2",
-    "mini-css-extract-plugin": "^2.9.0",
-    "sass": "^1.77.8",
-    "sass-loader": "^16.0.0",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.5.4",
-    "webpack": "^5.93.0",
-    "webpack-cli": "^5.1.4"
+    "sass": "^1.87.0",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@xterm/addon-fit": "^0.10.0",

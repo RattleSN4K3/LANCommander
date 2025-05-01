@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "ESNext",
-    "outDir": "./dist",
+    "outDir": "wwwroot",
     "moduleResolution": "node",
     "sourceMap": true,
     "allowSyntheticDefaultImports": true
   },
   "include": [ "**/*.ts" ],
-  "exclude": [ "node_modules" ]
+  "exclude": [ "node_modules", "wwwroot" ]
 }

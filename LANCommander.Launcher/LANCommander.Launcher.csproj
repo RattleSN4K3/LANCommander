@@ -52,7 +52,7 @@
     </ItemGroup>
 
 	<ItemGroup>
-	    <Content Remove="package.json;package-lock.json;tsconfig.json;webpack.config.js" />
+	    <Content Remove="package-lock.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -81,8 +81,15 @@
         <ProjectReference Include="..\LANCommander.UI\LANCommander.UI.csproj" />
     </ItemGroup>
 
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<PropertyGroup>
+			<NpmInstalled Condition="Exists('node_modules')">true</NpmInstalled>
+		</PropertyGroup>
+		<Message Text="Compiling global SCSS files" Importance="high" Condition="'$(NpmInstalled)' != 'true'" />
+		<Exec Command="npm install" Condition="'$(NpmInstalled)' != 'true'" />
+	</Target>
 	<Target Name="CompileGlobalSass" BeforeTargets="Compile">
 		<Message Text="Compiling global SCSS files" Importance="high" />
-		<Exec Command="npm run package" />
+		<Exec Command="npm run build:sass" />
 	</Target>
 </Project>

@@ -6,10 +6,23 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <PropertyGroup>
+      <NpmInstalled Condition="Exists('node_modules')">true</NpmInstalled>
+    </PropertyGroup>
+    <Exec Command="npm install" Condition="'$(NpmInstalled)' != 'true'" />
+  </Target>
   <Target Name="CompileFrontendResources" BeforeTargets="Compile">
     <Message Text="Compiling frontend" Importance="high" />
-    <Exec Command="npm run package" />
+	<Exec Command="npm run build:sass" />
+	<Exec Command="npm run build:ts" />
   </Target>
+  <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
 	
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -31,11 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="package.json;package-lock.json;tsconfig.json;webpack.config.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Content Remove="package-lock.json" />
   </ItemGroup>
 
   <ItemGroup>
